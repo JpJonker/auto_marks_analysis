@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { utils, writeFile } from "xlsx";
-import { TextField, Button, ButtonGroup, Grid } from "@mui/material";
 
-import "./AsmtMarksTool.scss";
-
-const ToolPage = () => {
+const Tool = () => {
   const [fileName, setFileName] = useState("Assessment Analysis");
   const [asmtName, setAsmtName] = useState("");
   const [asmtMaxMarks, setAsmtMaxMarks] = useState("");
@@ -103,65 +100,7 @@ const ToolPage = () => {
     setMarkEntries([defaultEntry, ...markEntries]);
   }, []);
 
-  return (
-    <Grid container spacing={{ xs: 2, md: 3 }}>
-      <Grid item xs={12} sm={6} md={3}>
-        <TextField
-          fullWidth
-          label='Filename: '
-          variant='outlined'
-          onChange={(e) => setFileName(e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <TextField
-          fullWidth
-          label='Assessment Name: '
-          variant='outlined'
-          onChange={(e) => setAsmtName(e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <TextField
-          fullWidth
-          label='Max Marks: '
-          variant='outlined'
-          onChange={(e) => setAsmtMaxMarks(e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <TextField
-          fullWidth
-          label='Student Count: '
-          variant='outlined'
-          onChange={(e) => setStudentCount(e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12} md={12}>
-        <TextField
-          fullWidth
-          label='Marks: '
-          variant='outlined'
-          onChange={(e) => setAsmtMarks(e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12} sx={{ marginTop: "1.5rem" }}>
-        <Grid container>
-          <Grid item xs={0} sm={4} md={7}></Grid>
-          <Grid item xs={12} sm={8} md={5}>
-            <ButtonGroup sx={{ width: "100%" }}>
-              <Button variant='contained' onClick={saveEntry} sx={{ width: "50%" }}>
-                Add Entry
-              </Button>
-              <Button variant='contained' onClick={createSheet} sx={{ width: "50%" }}>
-                Download File
-              </Button>
-            </ButtonGroup>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
+  return <div>APP</div>;
 };
 
-export default ToolPage;
+export default Tool;
