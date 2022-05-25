@@ -1,19 +1,27 @@
 import { useState, useEffect } from "react";
 import { utils, writeFile } from "xlsx";
+import { TextField, Button, ButtonGroup, Grid } from "@mui/material";
+
+import "./AsmtMarksTool.scss";
 
 const ToolPage = () => {
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState("Assessment Analysis");
   const [asmtName, setAsmtName] = useState("");
   const [asmtMaxMarks, setAsmtMaxMarks] = useState("");
   const [asmtMarks, setAsmtMarks] = useState("");
   const [markEntries, setMarkEntries]: any[] = useState([]);
   const [studentCount, setStudentCount] = useState("0");
-  const [defaultEntryValue, SetdefaultEntryValue] = useState(200);
+  const [defaultEntryValue, setDefaultEntryValue] = useState("200");
 
   const saveEntry = () => {
-    let entry: any[] = [asmtName];
+    let entry: any[] = [];
     let maxMarks = Number(asmtMaxMarks);
     let marksArray = asmtMarks.split(" ");
+    // filters out any empty string inside marksArray.
+    marksArray = marksArray.filter((value, index, marksArray) => {
+      return value !== "";
+    });
+
     let absent = 0;
     let isAbsentAdded = false;
 
@@ -27,15 +35,14 @@ const ToolPage = () => {
           markCount++;
         }
       });
-      if (isAbsentAdded == false) {
-        entry.push(absent);
-        isAbsentAdded = true;
-      }
       entry.push(markCount);
     }
-    console.log(marksArray);
-    console.log(studentCount);
+
+    let average = getAverage(marksArray);
+
     if (Number(studentCount) === marksArray.length) {
+      entry.unshift(asmtName, average, absent);
+      console.log(entry);
       setMarkEntries([...markEntries, entry]);
       return;
     } else {
@@ -43,11 +50,21 @@ const ToolPage = () => {
     }
   };
 
+  const getAverage = (array: string[]) => {
+    let average = 0;
+    array.forEach((value) => {
+      let numberValue = Number(value);
+      average += numberValue;
+    });
+    average = average / array.length;
+    return average;
+  };
+
   const formatInput = (entries: []) => {
     var Results: any[] = [];
     var count = 0;
-    console.log(entries);
 
+    console.log(entries);
     // gets the input array with the longest length and assigns that value to count
     entries.forEach((entry: any[]) => {
       let Len = entry.length;
@@ -79,43 +96,71 @@ const ToolPage = () => {
   };
 
   useEffect(() => {
-    let defaultEntry: any[] = ["Mark Values", "Absents"];
-    for (let i = 0; i < defaultEntryValue + 1; i++) {
+    let defaultEntry: any[] = ["Mark Val", "Average", "Absent"];
+    for (let i = 0; i < Number(defaultEntryValue) + 1; i++) {
       defaultEntry.push(i);
     }
-    setMarkEntries([defaultEntry]);
+    setMarkEntries([defaultEntry, ...markEntries]);
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <input type='text' placeholder='File Name' onChange={(e) => setFileName(e.target.value)} />
-      <input
-        type='text'
-        placeholder='Assessment Name'
-        onChange={(e) => setAsmtName(e.target.value)}
-      />
-      <input
-        type='text'
-        placeholder='Assessment Max Marks'
-        onChange={(e) => setAsmtMaxMarks(e.target.value)}
-      />
-      <input
-        type='text'
-        placeholder='Assessment Marks'
-        onChange={(e) => setAsmtMarks(e.target.value)}
-      />
-      <input
-        type='text'
-        placeholder='Student Count'
-        onChange={(e) => setStudentCount(e.target.value)}
-      />
-      <button type='button' onClick={saveEntry}>
-        Save Entry
-      </button>
-      <button type='button' onClick={createSheet}>
-        Save sheet
-      </button>
-    </div>
+    <Grid container spacing={{ xs: 2, md: 3 }}>
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          label='Filename: '
+          variant='outlined'
+          onChange={(e) => setFileName(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          label='Assessment Name: '
+          variant='outlined'
+          onChange={(e) => setAsmtName(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          label='Max Marks: '
+          variant='outlined'
+          onChange={(e) => setAsmtMaxMarks(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          label='Student Count: '
+          variant='outlined'
+          onChange={(e) => setStudentCount(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <TextField
+          fullWidth
+          label='Marks: '
+          variant='outlined'
+          onChange={(e) => setAsmtMarks(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} sx={{ marginTop: "1.5rem" }}>
+        <Grid container>
+          <Grid item xs={0} sm={4} md={7}></Grid>
+          <Grid item xs={12} sm={8} md={5}>
+            <ButtonGroup sx={{ width: "100%" }}>
+              <Button variant='contained' onClick={saveEntry} sx={{ width: "50%" }}>
+                Add Entry
+              </Button>
+              <Button variant='contained' onClick={createSheet} sx={{ width: "50%" }}>
+                Download File
+              </Button>
+            </ButtonGroup>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

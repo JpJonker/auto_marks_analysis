@@ -1,15 +1,19 @@
-import React from "react";
+import { Container, Box } from "@mui/material";
+
 import { NavBar, Footer } from "./components";
-import { AsmtMarkTool, Home, About, Blog } from "./containers";
+import { AsmtMarkTool } from "./containers";
 
 const App = () => {
   return (
-    <div>
-      <header></header>
-      <main>
-        <AsmtMarkTool />
-      </main>
-    </div>
+    <>
+      <NavBar />
+      <Container fixed>
+        <header></header>
+        <main>
+          <AsmtMarkTool />
+        </main>
+      </Container>
+    </>
   );
 };
 
