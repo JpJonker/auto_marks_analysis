@@ -15,11 +15,6 @@ const NavBar = () => {
         <Row justify='space-evenly'>
           <Space direction='horizontal'>
             <Col>
-              <Link to='/guide'>
-                <Typography style={{ color: "#fff" }}>Guide</Typography>
-              </Link>
-            </Col>
-            <Col>
               <a href='mailto:devjp2020@yahoo.com'>
                 <Typography style={{ color: "#fff" }}>Contact me</Typography>
               </a>

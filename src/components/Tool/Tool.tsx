@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { utils, writeFile } from "xlsx";
 import { Input, Space, Tooltip, Button, Row } from "antd";
-import { warning } from "react-router/lib/router";
+
+import { Guide } from "../";
 
 const Tool = () => {
   const [fileName, setFileName] = useState("");
@@ -142,7 +143,8 @@ const Tool = () => {
     const wb = utils.book_new();
     const ws = utils.json_to_sheet(data);
     utils.book_append_sheet(wb, ws, "Sheet 1");
-    writeFile(wb, `${fileName}.xlsb`);
+    let wbName = !fileName ? "Assessment Analysis.xlsb" : `${fileName}.xlsb`;
+    writeFile(wb, wbName);
   };
 
   useEffect(() => {
@@ -184,7 +186,7 @@ const Tool = () => {
         </Tooltip>
         <Tooltip
           placement='top'
-          title='Enter the number that is the Max achievable marks for the assessment'
+          title="Enter the number that is the Max achievable marks for the assessment as number or it won't work"
         >
           <Input
             placeholder={errorMessage[2] === "" ? "Mark Marks" : errorMessage[2]}
@@ -194,7 +196,10 @@ const Tool = () => {
             maxLength={3}
           />
         </Tooltip>
-        <Tooltip placement='top' title='Enter the number of the amount of students you have'>
+        <Tooltip
+          placement='top'
+          title="Enter the number of the amount of students you have as number or it won't work"
+        >
           <Input
             placeholder={errorMessage[3] === "" ? "student Count: " : errorMessage[3]}
             addonBefore='Student Count'
@@ -205,13 +210,14 @@ const Tool = () => {
         </Tooltip>
         <Tooltip
           placement='top'
-          title='Enter the marks separated with a space like this. "1 2 2 3 4 4", for absent students add "a" or "A"'
+          title='Enter the marks separated with a space e.g. "1 2 3 4 a 5" & use "a" or "A" for absents'
         >
           <Input
             placeholder={errorMessage[4] === "" ? "Marks: " : errorMessage[4]}
             addonBefore='Marks'
             onChange={(e) => setAsmtMarks(e.target.value)}
             status={errorMessage[4] === "" ? "" : "error"}
+            allowClear
           />
         </Tooltip>
         <Row justify='end'>

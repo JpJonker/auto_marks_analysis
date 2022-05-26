@@ -17,7 +17,6 @@ const App = () => {
         <Content className='app__content-container'>
           <Routes>
             <Route path='/' element={<Tool />} />
-            <Route path='/guide' element={<Guide />} />
             <Route path='/terms-of-service' element={<TermsOfService />} />
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           </Routes>
