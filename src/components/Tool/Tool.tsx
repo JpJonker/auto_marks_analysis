@@ -92,14 +92,10 @@ const Tool = () => {
 
       if (Number(studentCount) === marksArray.length) {
         entry.unshift(asmtName, average, absent);
-        console.log(entry);
         setMarkEntries([...markEntries, entry]);
         return;
-      } else {
-        console.log("not same");
       }
     }
-    console.log(errorMessage);
   };
 
   const getAverage = (array: string[]) => {
@@ -155,10 +151,6 @@ const Tool = () => {
     setMarkEntries([defaultEntry, ...markEntries]);
   }, []);
 
-  useEffect(() => {
-    console.log(errorMessage);
-  }, [errorMessage]);
-
   return (
     <Input.Group size='large'>
       <Space direction='vertical' style={{ width: "100%" }}>
@@ -210,7 +202,7 @@ const Tool = () => {
         </Tooltip>
         <Tooltip
           placement='top'
-          title='Enter the marks separated with a space e.g. "1 2 3 4 a 5" & use "a" or "A" for absents'
+          title='Enter the marks separated with a space e.g. "1 2 3 4 a 5" & use "a" or "A" for absents. The amount of marks you enter should be same as student count'
         >
           <Input
             placeholder={errorMessage[4] === "" ? "Marks: " : errorMessage[4]}
