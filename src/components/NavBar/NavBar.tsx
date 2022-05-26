@@ -6,18 +6,25 @@ const NavBar = () => {
     <Row justify='space-between' align='middle'>
       <Col>
         <Link to='/'>
-          <Typography.Title level={2} style={{ margin: 0, color: "#fff" }}>
-            Logo
+          <Typography.Title level={4} style={{ margin: 0, color: "#fff" }}>
+            Auto Excel Tool
           </Typography.Title>
         </Link>
       </Col>
       <Col>
         <Row justify='space-evenly'>
-          <Col>
-            <Link to='/guide'>
-              <Typography style={{ color: "#fff" }}>Guide</Typography>
-            </Link>
-          </Col>
+          <Space direction='horizontal'>
+            <Col>
+              <Link to='/guide'>
+                <Typography style={{ color: "#fff" }}>Guide</Typography>
+              </Link>
+            </Col>
+            <Col>
+              <a href='mailto:devjp2020@yahoo.com'>
+                <Typography style={{ color: "#fff" }}>Contact me</Typography>
+              </a>
+            </Col>
+          </Space>
         </Row>
       </Col>
     </Row>
