@@ -14,7 +14,7 @@ const Tool = () => {
   const [defaultEntryValue, setDefaultEntryValue] = useState("200");
   const [errorMessage, setErrorMessage]: any[] = useState(["", "", "", "", ""]);
 
-  const validate = () => {
+  const validate = (array: any[]) => {
     let valid = true;
     let results: any[] = [];
 
@@ -53,6 +53,8 @@ const Tool = () => {
     if (asmtMarks === "") {
       results.push("Can't be Empty");
       valid = false;
+    } else if (Number(studentCount) !== array.length) {
+      results.push("Student count is not the same as the marks entered");
     } else {
       results.push("");
     }
@@ -62,12 +64,11 @@ const Tool = () => {
   };
 
   const saveEntry = () => {
-    let valid = validate();
-
+    let entry: any[] = [];
+    let maxMarks = Number(asmtMaxMarks);
+    let marksArray = asmtMarks.split(" ");
+    let valid = validate(marksArray);
     if (valid === true) {
-      let entry: any[] = [];
-      let maxMarks = Number(asmtMaxMarks);
-      let marksArray = asmtMarks.split(" ");
       // filters out any empty string inside marksArray.
       marksArray = marksArray.filter((value, index, marksArray) => {
         return value !== "";
