@@ -267,7 +267,7 @@ const AutoExcelTool = () => {
           </Row>
         </Space>
       </Input.Group>
-      <a href='mailto=devjp2020@yahoo.com'>
+      <a href='mailto:devjp2020@yahoo.com'>
         <Typography.Text underline style={{ marginBottom: "2rem" }}>
           If you have any questions or found an issue let me know
         </Typography.Text>
