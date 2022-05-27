@@ -1,7 +1,8 @@
 import { Layout } from "antd";
-
-import { NavBar, Tool, Guide, AppFooter, TermsOfService, PrivacyPolicy } from "./components";
 import { Route, Routes } from "react-router-dom";
+
+import { NavBar, AppFooter } from "./components";
+import { AutoExcelTool, AutoExcelToolGuide } from "./containers";
 import "antd/dist/antd.min.css";
 import "./App.scss";
 
@@ -16,9 +17,8 @@ const App = () => {
       <Layout>
         <Content className='app__content-container'>
           <Routes>
-            <Route path='/' element={<Tool />} />
-            <Route path='/terms-of-service' element={<TermsOfService />} />
-            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='/' element={<AutoExcelTool />} />
+            <Route path='/help' element={<AutoExcelToolGuide />} />
           </Routes>
         </Content>
       </Layout>

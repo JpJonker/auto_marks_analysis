@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import { utils, writeFile } from "xlsx";
 import { Input, Space, Tooltip, Button, Row } from "antd";
 
-import { Guide } from "../";
-
-const Tool = () => {
+const AutoExcelTool = () => {
   const [fileName, setFileName] = useState("");
   const [asmtName, setAsmtName] = useState("");
   const [asmtMaxMarks, setAsmtMaxMarks] = useState("");
@@ -68,6 +66,8 @@ const Tool = () => {
     let maxMarks = Number(asmtMaxMarks);
     let marksArray = asmtMarks.split(" ");
     let valid = validate(marksArray);
+    let absentAdded = false;
+
     if (valid === true) {
       // filters out any empty string inside marksArray.
       marksArray = marksArray.filter((value, index, marksArray) => {
@@ -79,7 +79,8 @@ const Tool = () => {
       for (let i = 0; i <= maxMarks; i++) {
         let markCount = 0;
         marksArray.forEach((mark) => {
-          if (mark == "a" || mark == "A") {
+          console.log(mark);
+          if ((mark === "a" || mark === "A") && absentAdded === false) {
             absent++;
           }
           if (Number(mark) == i) {
@@ -87,6 +88,8 @@ const Tool = () => {
           }
         });
         entry.push(markCount);
+        absentAdded = true;
+        console.log(absent);
       }
 
       let average = getAverage(marksArray);
@@ -101,11 +104,16 @@ const Tool = () => {
 
   const getAverage = (array: string[]) => {
     let average = 0;
+    let nanCount = 0;
     array.forEach((value) => {
+      if (isNaN(Number(value)) === true) {
+        nanCount++;
+        return;
+      }
       let numberValue = Number(value);
       average += numberValue;
     });
-    average = average / array.length;
+    average = average / (array.length - nanCount);
     return average;
   };
 
@@ -256,4 +264,4 @@ const Tool = () => {
   );
 };
 
-export default Tool;
+export default AutoExcelTool;
