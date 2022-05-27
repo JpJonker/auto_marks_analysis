@@ -19,42 +19,42 @@ const Tool = () => {
     let results: any[] = [];
 
     if (fileName === "") {
-      results.push("Can't be Empty");
+      results.push("Filename can't be empty");
       valid = false;
     } else {
       results.push("");
     }
 
     if (asmtName === "") {
-      results.push("Can't be Empty");
+      results.push("Assessment name can't be empty");
       valid = false;
     } else {
       results.push("");
     }
 
     if (asmtMaxMarks === "") {
-      results.push("Can't be Empty");
+      results.push("Max marks can't be empty");
       valid = false;
     } else if (isNaN(Number(asmtMaxMarks)) === true) {
-      results.push("Not a number");
+      results.push("Max marks should be a number");
     } else {
       results.push("");
     }
 
     if (studentCount === "") {
-      results.push("Can't be Empty");
+      results.push("Student count can't be empty");
       valid = false;
     } else if (isNaN(Number(asmtMaxMarks)) === true) {
-      results.push("Not a number ");
+      results.push("Student count should be a number ");
     } else {
       results.push("");
     }
 
     if (asmtMarks === "") {
-      results.push("Can't be Empty");
+      results.push("Marks can't be empty");
       valid = false;
     } else if (Number(studentCount) !== array.length) {
-      results.push("Student count is not the same as the marks entered");
+      results.push("Amount of marks entered is not the same as student count");
     } else {
       results.push("");
     }
@@ -137,11 +137,21 @@ const Tool = () => {
 
   const createSheet = () => {
     let data = formatInput(markEntries);
+    let colAmount = getColAmount(data);
+    let colFormat: any[] = [];
+    for (let i = 0; i < colAmount; i++) {
+      colFormat.push({ wch: 15 });
+    }
     const wb = utils.book_new();
     const ws = utils.json_to_sheet(data);
+    ws["!cols"] = colFormat;
     utils.book_append_sheet(wb, ws, "Sheet 1");
     let wbName = !fileName ? "Assessment Analysis.xlsb" : `${fileName}.xlsb`;
     writeFile(wb, wbName);
+  };
+
+  const getColAmount = (data: any) => {
+    return Object.keys(data["0"]).length;
   };
 
   useEffect(() => {
@@ -157,10 +167,14 @@ const Tool = () => {
       <Space direction='vertical' style={{ width: "100%" }}>
         <Tooltip
           placement='top'
-          title='Enter the name you wish to have the created to be named (e.g. English Term 1 2022)'
+          title={
+            errorMessage[0] === ""
+              ? "Enter the name you wish the file to be created as (e.g. English Term 1 2022)"
+              : errorMessage[0]
+          }
         >
           <Input
-            placeholder={errorMessage[0] === "" ? "Assessment Analysis" : errorMessage[0]}
+            placeholder='Enter filename'
             addonBefore='Filename'
             onChange={(e) => setFileName(e.target.value)}
             status={errorMessage[0] === "" ? "" : "error"}
@@ -168,10 +182,14 @@ const Tool = () => {
         </Tooltip>
         <Tooltip
           placement='top'
-          title='Enter the name of the assessment you are entering (e.g. T1:A1)'
+          title={
+            errorMessage[1] === ""
+              ? ' Enter the name of the assessment or assessment section (e.g. "T1:A1" or "Section A"), this will be the header for the field'
+              : errorMessage[1]
+          }
         >
           <Input
-            placeholder={errorMessage[1] === "" ? "Assessment Name" : errorMessage[1]}
+            placeholder='Enter assessment name'
             addonBefore='Assessment Name'
             onChange={(e) => setAsmtName(e.target.value)}
             status={errorMessage[1] === "" ? "" : "error"}
@@ -179,10 +197,14 @@ const Tool = () => {
         </Tooltip>
         <Tooltip
           placement='top'
-          title="Enter the number that is the Max achievable marks for the assessment as number or it won't work"
+          title={
+            errorMessage[2] === ""
+              ? "Enter the max or total amount of marks achievable on this assessment "
+              : errorMessage[2]
+          }
         >
           <Input
-            placeholder={errorMessage[2] === "" ? "Mark Marks" : errorMessage[2]}
+            placeholder='Enter the max achievable mark'
             addonBefore='Max Marks'
             onChange={(e) => setAsmtMaxMarks(e.target.value)}
             status={errorMessage[2] === "" ? "" : "error"}
@@ -191,10 +213,14 @@ const Tool = () => {
         </Tooltip>
         <Tooltip
           placement='top'
-          title="Enter the number of the amount of students you have as number or it won't work"
+          title={
+            errorMessage[3] === ""
+              ? "Enter the amount of students which you have "
+              : errorMessage[3]
+          }
         >
           <Input
-            placeholder={errorMessage[3] === "" ? "student Count: " : errorMessage[3]}
+            placeholder='Enter the amount of students you have'
             addonBefore='Student Count'
             onChange={(e) => setStudentCount(e.target.value)}
             status={errorMessage[3] === "" ? "" : "error"}
@@ -203,10 +229,14 @@ const Tool = () => {
         </Tooltip>
         <Tooltip
           placement='top'
-          title='Enter the marks separated with a space e.g. "1 2 3 4 a 5" & use "a" or "A" for absents. The amount of marks you enter should be same as student count'
+          title={
+            errorMessage[4] === ""
+              ? "Enter the marks the students have received for the assessment. ( Note the marks should be separeted with a space )"
+              : errorMessage[4]
+          }
         >
           <Input
-            placeholder={errorMessage[4] === "" ? "Marks: " : errorMessage[4]}
+            placeholder='Enter the marks separated with a space'
             addonBefore='Marks'
             onChange={(e) => setAsmtMarks(e.target.value)}
             status={errorMessage[4] === "" ? "" : "error"}
