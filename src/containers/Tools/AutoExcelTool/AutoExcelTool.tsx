@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { utils, writeFile } from "xlsx";
-import { Input, Space, Tooltip, Button, Row } from "antd";
+import { Input, Space, Tooltip, Button, Row, Typography } from "antd";
+import { Link } from "react-router-dom";
 
 const AutoExcelTool = () => {
   const [fileName, setFileName] = useState("");
@@ -169,96 +170,104 @@ const AutoExcelTool = () => {
   }, []);
 
   return (
-    <Input.Group size='large'>
-      <Space direction='vertical' style={{ width: "100%" }}>
-        <Tooltip
-          placement='top'
-          title={
-            errorMessage[0] === ""
-              ? "Enter the name you wish the file to be created as (e.g. English Term 1 2022)"
-              : errorMessage[0]
-          }
-        >
-          <Input
-            placeholder='Enter filename'
-            addonBefore='Filename'
-            onChange={(e) => setFileName(e.target.value)}
-            status={errorMessage[0] === "" ? "" : "error"}
-          />
-        </Tooltip>
-        <Tooltip
-          placement='top'
-          title={
-            errorMessage[1] === ""
-              ? ' Enter the name of the assessment or assessment section (e.g. "T1:A1" or "Section A"), this will be the header for the field'
-              : errorMessage[1]
-          }
-        >
-          <Input
-            placeholder='Enter assessment name'
-            addonBefore='Assessment Name'
-            onChange={(e) => setAsmtName(e.target.value)}
-            status={errorMessage[1] === "" ? "" : "error"}
-          />
-        </Tooltip>
-        <Tooltip
-          placement='top'
-          title={
-            errorMessage[2] === ""
-              ? "Enter the max or total amount of marks achievable on this assessment "
-              : errorMessage[2]
-          }
-        >
-          <Input
-            placeholder='Enter the max achievable mark'
-            addonBefore='Max Marks'
-            onChange={(e) => setAsmtMaxMarks(e.target.value)}
-            status={errorMessage[2] === "" ? "" : "error"}
-            maxLength={3}
-          />
-        </Tooltip>
-        <Tooltip
-          placement='top'
-          title={
-            errorMessage[3] === ""
-              ? "Enter the amount of students which you have "
-              : errorMessage[3]
-          }
-        >
-          <Input
-            placeholder='Enter the amount of students you have'
-            addonBefore='Student Count'
-            onChange={(e) => setStudentCount(e.target.value)}
-            status={errorMessage[3] === "" ? "" : "error"}
-            maxLength={3}
-          />
-        </Tooltip>
-        <Tooltip
-          placement='top'
-          title={
-            errorMessage[4] === ""
-              ? "Enter the marks the students have received for the assessment. ( Note the marks should be separeted with a space )"
-              : errorMessage[4]
-          }
-        >
-          <Input
-            placeholder='Enter the marks separated with a space'
-            addonBefore='Marks'
-            onChange={(e) => setAsmtMarks(e.target.value)}
-            status={errorMessage[4] === "" ? "" : "error"}
-            allowClear
-          />
-        </Tooltip>
-        <Row justify='end'>
-          <Space direction='horizontal'>
-            <Button onClick={saveEntry}>Add Entry</Button>
-            <Button type='primary' onClick={createSheet}>
-              Download File
-            </Button>
-          </Space>
-        </Row>
-      </Space>
-    </Input.Group>
+    <>
+      <Typography.Title level={2} style={{ marginTop: "2rem" }}>
+        Auto Excel Tool made for teachers:{" "}
+      </Typography.Title>
+      <Link to='/help'>
+        <Typography.Text>How to use the tool?</Typography.Text>
+      </Link>
+      <Input.Group size='large' style={{ maxWidth: 1280, margin: "2rem 0" }}>
+        <Space direction='vertical' style={{ width: "100%" }}>
+          <Tooltip
+            placement='top'
+            title={
+              errorMessage[0] === ""
+                ? "Enter the name you wish the file to be created as (e.g. English Term 1 2022)"
+                : errorMessage[0]
+            }
+          >
+            <Input
+              placeholder='Enter filename'
+              addonBefore='Filename'
+              onChange={(e) => setFileName(e.target.value)}
+              status={errorMessage[0] === "" ? "" : "error"}
+            />
+          </Tooltip>
+          <Tooltip
+            placement='top'
+            title={
+              errorMessage[1] === ""
+                ? ' Enter the name of the assessment or assessment section (e.g. "T1:A1" or "Section A"), this will be the header for the field'
+                : errorMessage[1]
+            }
+          >
+            <Input
+              placeholder='Enter assessment name'
+              addonBefore='Assessment Name'
+              onChange={(e) => setAsmtName(e.target.value)}
+              status={errorMessage[1] === "" ? "" : "error"}
+            />
+          </Tooltip>
+          <Tooltip
+            placement='top'
+            title={
+              errorMessage[2] === ""
+                ? "Enter the max or total amount of marks achievable on this assessment "
+                : errorMessage[2]
+            }
+          >
+            <Input
+              placeholder='Enter the max achievable mark'
+              addonBefore='Max Marks'
+              onChange={(e) => setAsmtMaxMarks(e.target.value)}
+              status={errorMessage[2] === "" ? "" : "error"}
+              maxLength={3}
+            />
+          </Tooltip>
+          <Tooltip
+            placement='top'
+            title={
+              errorMessage[3] === ""
+                ? "Enter the amount of students which you have "
+                : errorMessage[3]
+            }
+          >
+            <Input
+              placeholder='Enter the amount of students you have'
+              addonBefore='Student Count'
+              onChange={(e) => setStudentCount(e.target.value)}
+              status={errorMessage[3] === "" ? "" : "error"}
+              maxLength={3}
+            />
+          </Tooltip>
+          <Tooltip
+            placement='top'
+            title={
+              errorMessage[4] === ""
+                ? "Enter the marks the students have received for the assessment. ( Note the marks should be separeted with a space )"
+                : errorMessage[4]
+            }
+          >
+            <Input
+              placeholder='Enter the marks separated with a space'
+              addonBefore='Marks'
+              onChange={(e) => setAsmtMarks(e.target.value)}
+              status={errorMessage[4] === "" ? "" : "error"}
+              allowClear
+            />
+          </Tooltip>
+          <Row justify='end'>
+            <Space direction='horizontal'>
+              <Button onClick={saveEntry}>Add Entry</Button>
+              <Button type='primary' onClick={createSheet}>
+                Download File
+              </Button>
+            </Space>
+          </Row>
+        </Space>
+      </Input.Group>
+    </>
   );
 };
 

@@ -1,2 +1,2 @@
 export { default as AutoExcelTool } from "./Tools/AutoExcelTool/AutoExcelTool";
-export { default as AutoExcelToolGuide } from "./Tools/Guides/AutoExcelToolGuide";
+export { default as AutoExcelToolGuide } from "./Guides/AutoExcelToolGuide/AutoExcelToolGuide";
