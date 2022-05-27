@@ -4,7 +4,7 @@ const PrivacyPolicy = () => {
   return (
     <div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
       <h1>Privacy Policy</h1>
-      <p>Updated at 2022-05-25</p>
+      <p>Updated at 2022-05-27</p>
 
       <p>
         {" "}
@@ -259,7 +259,19 @@ const PrivacyPolicy = () => {
         access and use them entirely at your own risk and subject to such third parties' terms and
         conditions.
       </p>
-      <ul></ul>
+      <h1>Tracking Technologies</h1>
+      <ul>
+        <li>Sessions</li>
+        <br />
+        <li>
+          <p>
+            $elnombre uses "Sessions" to identify the areas of our website that you have visited. A
+            Session is a small piece of data stored on your computer or mobile device by your web
+            browser.
+          </p>
+        </li>
+        <br />
+      </ul>
       <h1>Information about General Data Protection Regulation (GDPR)</h1>
       <p>
         We may be collecting and using information from you if you are from the European Economic
@@ -409,11 +421,11 @@ const PrivacyPolicy = () => {
       <p>Don't hesitate to contact us if you have any questions.</p>
       <ul>
         <li>
-          Via Email:{" "}
+          Via Email:{"  "}
           <a
-            href='/cdn-cgi/l/email-protection'
+            href='mailto=devjp2020@yahoo.com'
             className='__cf_email__'
-            data-cfemail='670302110d1755575557271e060f08084904080a'
+            data-cfemail='b8dcddced2c88a888a88f8c1d9d0d7d796dbd7d5'
           >
             [email&#160;protected]
           </a>
