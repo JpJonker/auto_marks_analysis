@@ -79,7 +79,6 @@ const AutoExcelTool = () => {
       for (let i = 0; i <= maxMarks; i++) {
         let markCount = 0;
         marksArray.forEach((mark) => {
-          console.log(mark);
           if ((mark === "a" || mark === "A") && absentAdded === false) {
             absent++;
           }
@@ -89,7 +88,6 @@ const AutoExcelTool = () => {
         });
         entry.push(markCount);
         absentAdded = true;
-        console.log(absent);
       }
 
       let average = getAverage(marksArray);
