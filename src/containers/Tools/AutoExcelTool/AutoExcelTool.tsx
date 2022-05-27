@@ -175,7 +175,7 @@ const AutoExcelTool = () => {
         Auto Excel Tool made for teachers:{" "}
       </Typography.Title>
       <Link to='/help'>
-        <Typography.Text>How to use the tool?</Typography.Text>
+        <Typography.Text underline>How to use the tool?</Typography.Text>
       </Link>
       <Input.Group size='large' style={{ maxWidth: 1280, margin: "2rem 0" }}>
         <Space direction='vertical' style={{ width: "100%" }}>
