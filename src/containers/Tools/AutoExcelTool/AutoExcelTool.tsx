@@ -267,6 +267,11 @@ const AutoExcelTool = () => {
           </Row>
         </Space>
       </Input.Group>
+      <a href='mailto=devjp2020@yahoo.com'>
+        <Typography.Text underline>
+          If you have any questions or found an issue let me know
+        </Typography.Text>
+      </a>
     </>
   );
 };

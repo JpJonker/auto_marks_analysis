@@ -14,7 +14,7 @@ const listData = [
   {
     title: "Assessment name field",
     description:
-      "Enter the name here, of the assessment or assessment section. It is up to you what you want to add here. It is best to add the assesssment name or assessment section.",
+      "Enter the name here, of the assessment or assessment section. It is up to you what you want to add here. It is best to add the assesssment name or assessment section. This will appear the header of the corresponding column in excel",
   },
   {
     title: "Max marks field",
