@@ -260,7 +260,7 @@ const AutoExcelTool = () => {
           <Row justify='end'>
             <Space direction='horizontal'>
               <Button onClick={saveEntry}>Add Entry</Button>
-              <Button type='primary' onClick={createSheet}>
+              <Button id='download-file' type='primary' onClick={createSheet}>
                 Download File
               </Button>
             </Space>
