@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { utils, writeFile } from "xlsx";
+import { utils, writeFileXLSX } from "xlsx";
 import { Input, Space, Tooltip, Button, Row, Typography } from "antd";
 import { Link } from "react-router-dom";
 
@@ -153,8 +153,8 @@ const AutoExcelTool = () => {
     const ws = utils.json_to_sheet(data);
     ws["!cols"] = colFormat;
     utils.book_append_sheet(wb, ws, "Sheet 1");
-    let wbName = !fileName ? "Assessment Analysis.xlsb" : `${fileName}.xlsb`;
-    writeFile(wb, wbName);
+    let wbName = !fileName ? "Assessment Analysis.xlsx" : `${fileName}.xlsx`;
+    writeFileXLSX(wb, wbName);
   };
 
   const getColAmount = (data: any) => {
