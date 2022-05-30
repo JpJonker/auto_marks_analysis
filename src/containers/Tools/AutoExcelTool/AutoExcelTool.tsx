@@ -284,7 +284,7 @@ const AutoExcelTool = () => {
                 id='download-file'
                 type='primary'
                 onClick={createSheet}
-                // disabled={entryNotEmpty === true ? false : true}
+                disabled={entryNotEmpty === true ? false : true}
               >
                 Download File
               </Button>
