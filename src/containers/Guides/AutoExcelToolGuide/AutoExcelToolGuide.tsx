@@ -1,4 +1,5 @@
 import { Typography, Space, Image, List } from "antd";
+import { Link } from "react-router-dom";
 
 import Step1 from "../../../assets/images/AET-Step-1.png";
 import Step2 from "../../../assets/images/AET-Step-2.png";
@@ -17,7 +18,7 @@ const listData = [
       "Enter the name here, of the assessment or assessment section. It is up to you what you want to add here. It is best to add the assesssment name or assessment section. This will appear the header of the corresponding column in excel",
   },
   {
-    title: "Max marks field",
+    title: "Max mark field",
     description:
       "Enter the number here, what the max achievable mark is for the given assessment. e.g. (if a student gets 15 out of 50 for the assessment, Add the number 50 here).",
   },
@@ -36,6 +37,9 @@ const listData = [
 const AutoExcelToolGuide = () => {
   return (
     <Space direction='vertical' size='large' style={{ margin: "2rem 0" }}>
+      <Link to='/'>
+        <Typography.Text underline>Back to Tool</Typography.Text>
+      </Link>
       <Typography.Title level={2} className='app__guide-text'>
         How to use the Auto Excel Tool:
       </Typography.Title>

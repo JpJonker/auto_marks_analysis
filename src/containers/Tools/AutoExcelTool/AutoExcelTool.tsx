@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { utils, writeFileXLSX } from "xlsx";
-import { Input, Space, Tooltip, Button, Row, Typography } from "antd";
+import { Input, Space, Tooltip, Button, Row, Typography, notification } from "antd";
+import { CheckCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const AutoExcelTool = () => {
@@ -10,10 +11,11 @@ const AutoExcelTool = () => {
   const [asmtMarks, setAsmtMarks] = useState("");
   const [markEntries, setMarkEntries]: any[] = useState([]);
   const [studentCount, setStudentCount] = useState("");
+  const [entryNotEmpty, setEntryNotEmpty] = useState(false);
   const [defaultEntryValue, setDefaultEntryValue] = useState("200");
   const [errorMessage, setErrorMessage]: any[] = useState(["", "", "", "", ""]);
 
-  const validate = (array: any[]) => {
+  const validate = (array: any[], markOverMax: boolean) => {
     let valid = true;
     let results: any[] = [];
 
@@ -32,10 +34,10 @@ const AutoExcelTool = () => {
     }
 
     if (asmtMaxMarks === "") {
-      results.push("Max marks can't be empty");
+      results.push("Max Mark can't be empty");
       valid = false;
     } else if (isNaN(Number(asmtMaxMarks)) === true) {
-      results.push("Max marks should be a number");
+      results.push("Max Mark should be a number");
     } else {
       results.push("");
     }
@@ -54,6 +56,10 @@ const AutoExcelTool = () => {
       valid = false;
     } else if (Number(studentCount) !== array.length) {
       results.push("Amount of marks entered is not the same as student count");
+    } else if (markOverMax === true) {
+      results.push(
+        "A mark you enter is more than the max mark specified or you might have forgot to add a space after entering a mark"
+      );
     } else {
       results.push("");
     }
@@ -66,39 +72,55 @@ const AutoExcelTool = () => {
     let entry: any[] = [];
     let maxMarks = Number(asmtMaxMarks);
     let marksArray = asmtMarks.split(" ");
-    let valid = validate(marksArray);
     let absentAdded = false;
+    let markOverMax = false;
+
+    marksArray = marksArray.filter((value, index, marksArray) => {
+      return value !== "";
+    });
+
+    // filters out any empty string inside marksArray.
+
+    let absent = 0;
+
+    for (let i = 0; i <= maxMarks; i++) {
+      let markCount = 0;
+      marksArray.forEach((mark) => {
+        if ((mark === "a" || mark === "A") && absentAdded === false) {
+          absent++;
+        }
+        if (Number(mark) == i) {
+          markCount++;
+        }
+        if (Number(mark) > maxMarks && markOverMax === false) {
+          markOverMax = true;
+        }
+      });
+      entry.push(markCount);
+      absentAdded = true;
+    }
+
+    let average = getAverage(marksArray);
+
+    let valid = validate(marksArray, markOverMax);
 
     if (valid === true) {
-      // filters out any empty string inside marksArray.
-      marksArray = marksArray.filter((value, index, marksArray) => {
-        return value !== "";
-      });
-
-      let absent = 0;
-
-      for (let i = 0; i <= maxMarks; i++) {
-        let markCount = 0;
-        marksArray.forEach((mark) => {
-          if ((mark === "a" || mark === "A") && absentAdded === false) {
-            absent++;
-          }
-          if (Number(mark) == i) {
-            markCount++;
-          }
-        });
-        entry.push(markCount);
-        absentAdded = true;
-      }
-
-      let average = getAverage(marksArray);
-
       if (Number(studentCount) === marksArray.length) {
         entry.unshift(asmtName, average, absent);
         setMarkEntries([...markEntries, entry]);
+        setEntryNotEmpty(true);
+        openNotification();
         return;
       }
     }
+  };
+
+  const openNotification = () => {
+    notification.open({
+      message: "Entry successfully added.",
+      icon: <CheckCircleOutlined style={{ color: "green" }} />,
+      duration: 2,
+    });
   };
 
   const getAverage = (array: string[]) => {
@@ -219,7 +241,7 @@ const AutoExcelTool = () => {
           >
             <Input
               placeholder='Enter the max achievable mark'
-              addonBefore='Max Marks'
+              addonBefore='Max Mark'
               onChange={(e) => setAsmtMaxMarks(e.target.value)}
               status={errorMessage[2] === "" ? "" : "error"}
               maxLength={3}
@@ -260,7 +282,12 @@ const AutoExcelTool = () => {
           <Row justify='end'>
             <Space direction='horizontal'>
               <Button onClick={saveEntry}>Add Entry</Button>
-              <Button id='download-file' type='primary' onClick={createSheet}>
+              <Button
+                id='download-file'
+                type='primary'
+                onClick={createSheet}
+                disabled={entryNotEmpty === true ? false : true}
+              >
                 Download File
               </Button>
             </Space>
