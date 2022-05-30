@@ -38,6 +38,7 @@ const AutoExcelTool = () => {
       valid = false;
     } else if (isNaN(Number(asmtMaxMarks)) === true) {
       results.push("Max Mark should be a number");
+      valid = false;
     } else {
       results.push("");
     }
@@ -47,6 +48,7 @@ const AutoExcelTool = () => {
       valid = false;
     } else if (isNaN(Number(asmtMaxMarks)) === true) {
       results.push("Student count should be a number ");
+      valid = false;
     } else {
       results.push("");
     }
@@ -56,10 +58,12 @@ const AutoExcelTool = () => {
       valid = false;
     } else if (Number(studentCount) !== array.length) {
       results.push("Amount of marks entered is not the same as student count");
+      valid = false;
     } else if (markOverMax === true) {
       results.push(
         "A mark you enter is more than the max mark specified or you might have forgot to add a space after entering a mark"
       );
+      valid = false;
     } else {
       results.push("");
     }
