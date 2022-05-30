@@ -166,11 +166,13 @@ const AutoExcelTool = () => {
 
   const createSheet = () => {
     let data = formatInput(markEntries);
-    let colAmount = getColAmount(data);
     let colFormat: any[] = [];
-    for (let i = 0; i < colAmount; i++) {
-      colFormat.push({ wch: 15 });
-    }
+
+    Object.keys(data[0]).forEach((key) => {
+      let cleanKey = key.trim();
+      colFormat.push({ wch: cleanKey.length });
+    });
+
     const wb = utils.book_new();
     const ws = utils.json_to_sheet(data);
     ws["!cols"] = colFormat;
@@ -179,12 +181,8 @@ const AutoExcelTool = () => {
     writeFileXLSX(wb, wbName);
   };
 
-  const getColAmount = (data: any) => {
-    return Object.keys(data["0"]).length;
-  };
-
   useEffect(() => {
-    let defaultEntry: any[] = ["Mark Val", "Average", "Absent"];
+    let defaultEntry: any[] = ["Mark Value", "Average", "Absent"];
     for (let i = 0; i < Number(defaultEntryValue) + 1; i++) {
       defaultEntry.push(i);
     }
@@ -286,7 +284,7 @@ const AutoExcelTool = () => {
                 id='download-file'
                 type='primary'
                 onClick={createSheet}
-                disabled={entryNotEmpty === true ? false : true}
+                // disabled={entryNotEmpty === true ? false : true}
               >
                 Download File
               </Button>
