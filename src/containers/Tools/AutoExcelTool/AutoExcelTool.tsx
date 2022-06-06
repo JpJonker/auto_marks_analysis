@@ -185,13 +185,13 @@ const AutoExcelTool = () => {
     writeFileXLSX(wb, wbName);
   };
 
-  useEffect(() => {
+  const addDefaultEntry = () => {
     let defaultEntry: any[] = ["Mark Value", "Average", "Absent"];
     for (let i = 0; i < Number(defaultEntryValue) + 1; i++) {
       defaultEntry.push(i);
     }
     setMarkEntries([defaultEntry, ...markEntries]);
-  }, []);
+  };
 
   return (
     <>
@@ -204,42 +204,47 @@ const AutoExcelTool = () => {
       <Input.Group size='large' style={{ maxWidth: 1280, margin: "2rem 0" }}>
         <Space direction='vertical' style={{ width: "100%" }}>
           <Tooltip
-            placement='top'
+            placement='topRight'
             title={
               errorMessage[0] === ""
                 ? "Enter the name you wish the file to be created as (e.g. English Term 1 2022)"
                 : errorMessage[0]
             }
+            color={errorMessage[0] === "" ? " grey" : "red"}
           >
             <Input
               placeholder='Enter filename'
               addonBefore='Filename'
               onChange={(e) => setFileName(e.target.value)}
               status={errorMessage[0] === "" ? "" : "error"}
+              allowClear
             />
           </Tooltip>
           <Tooltip
-            placement='top'
+            placement='topRight'
             title={
               errorMessage[1] === ""
                 ? ' Enter the name of the assessment or assessment section (e.g. "T1:A1" or "Section A"), this will be the header for the field'
                 : errorMessage[1]
             }
+            color={errorMessage[1] === "" ? " grey" : "red"}
           >
             <Input
               placeholder='Enter assessment name'
               addonBefore='Assessment Name'
               onChange={(e) => setAsmtName(e.target.value)}
               status={errorMessage[1] === "" ? "" : "error"}
+              allowClear
             />
           </Tooltip>
           <Tooltip
-            placement='top'
+            placement='topRight'
             title={
               errorMessage[2] === ""
                 ? "Enter the max or total amount of marks achievable on this assessment "
                 : errorMessage[2]
             }
+            color={errorMessage[2] === "" ? " grey" : "red"}
           >
             <Input
               placeholder='Enter the max achievable mark'
@@ -247,15 +252,17 @@ const AutoExcelTool = () => {
               onChange={(e) => setAsmtMaxMarks(e.target.value)}
               status={errorMessage[2] === "" ? "" : "error"}
               maxLength={3}
+              allowClear
             />
           </Tooltip>
           <Tooltip
-            placement='top'
+            placement='topRight'
             title={
               errorMessage[3] === ""
                 ? "Enter the amount of students which you have "
                 : errorMessage[3]
             }
+            color={errorMessage[3] === "" ? " grey" : "red"}
           >
             <Input
               placeholder='Enter the amount of students you have'
@@ -263,15 +270,17 @@ const AutoExcelTool = () => {
               onChange={(e) => setStudentCount(e.target.value)}
               status={errorMessage[3] === "" ? "" : "error"}
               maxLength={3}
+              allowClear
             />
           </Tooltip>
           <Tooltip
-            placement='top'
+            placement='topRight'
             title={
               errorMessage[4] === ""
                 ? "Enter the marks the students have received for the assessment. ( Note the marks should be separeted with a space )"
                 : errorMessage[4]
             }
+            color={errorMessage[4] === "" ? " grey" : "red"}
           >
             <Input
               placeholder='Enter the marks separated with a space'
@@ -285,7 +294,6 @@ const AutoExcelTool = () => {
             <Space direction='horizontal'>
               <Button onClick={saveEntry}>Add Entry</Button>
               <Button
-                id='download-file'
                 type='primary'
                 onClick={createSheet}
                 disabled={entryNotEmpty === true ? false : true}

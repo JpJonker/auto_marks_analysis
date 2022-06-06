@@ -16,7 +16,7 @@ const NavBar = () => {
           <Space direction='horizontal'>
             <Col>
               <a href='mailto:devjp2020@yahoo.com'>
-                <Typography style={{ color: "#fff" }}>Contact me</Typography>
+                <Typography style={{ color: "#fff" }}>Contact</Typography>
               </a>
             </Col>
           </Space>

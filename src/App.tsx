@@ -4,14 +4,14 @@ import { Route, Routes } from "react-router-dom";
 import { NavBar, AppFooter } from "./components";
 import { AutoExcelTool, AutoExcelToolGuide } from "./containers";
 import "antd/dist/antd.min.css";
-import "./App.scss";
+import "./App.css";
 
 const { Header, Content, Footer } = Layout;
 
 const App = () => {
   return (
     <Layout className='app'>
-      <Header>
+      <Header className='app__header'>
         <NavBar />
       </Header>
       <Layout>
