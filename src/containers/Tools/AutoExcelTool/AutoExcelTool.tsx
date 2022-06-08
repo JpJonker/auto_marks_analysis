@@ -14,7 +14,6 @@ const AutoExcelTool = () => {
   const [entryNotEmpty, setEntryNotEmpty] = useState(false);
   const [defaultEntryValue, setDefaultEntryValue] = useState("200");
   const [errorMessage, setErrorMessage]: any[] = useState(["", "", "", "", ""]);
-  const [entriesReset, setEntriesReset] = useState(false);
 
   const validate = (array: any[], markOverMax: boolean) => {
     let valid = true;
@@ -184,13 +183,7 @@ const AutoExcelTool = () => {
     utils.book_append_sheet(wb, ws, "Sheet 1");
     let wbName = !fileName ? "Assessment Analysis.xlsx" : `${fileName}.xlsx`;
     writeFileXLSX(wb, wbName);
-    setEntriesReset(false);
   };
-
-  // const resetEntries = () => {
-  //   setMarkEntries([]);
-  //   setEntriesReset(true);
-  // };
 
   useEffect(() => {
     let defaultEntry: any[] = ["Mark Value", "Average", "Absent"];
@@ -299,7 +292,6 @@ const AutoExcelTool = () => {
           </Tooltip>
           <Row justify='end'>
             <Space direction='horizontal'>
-              {/* <Button onClick={resetEntries}>Reset Entries</Button> */}
               <Button onClick={saveEntry}>Add Entry</Button>
               <Button
                 type='primary'

@@ -74,6 +74,13 @@ const AutoExcelToolGuide = () => {
         to click the download file button. This will download the file with all complete with all
         the data and mark analysis marks.
       </Typography.Text>
+      <Typography.Title level={3}>Step 4:</Typography.Title>
+      <Typography.Title level={4}>Reset Entries</Typography.Title>
+      <Typography.Text>
+        For now if you would like to enter entries for a second file, I recommend refreshing the
+        page. I will add the reset entries functionality shortly. Refreshing page will reset all
+        your entries previously entered thus allowing you to start from scratch.
+      </Typography.Text>
     </Space>
   );
 };
